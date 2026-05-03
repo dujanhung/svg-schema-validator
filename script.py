@@ -85,9 +85,9 @@ def main():
    print(f"🟢 {file}")
   else:
    print(f"🔴 {file}")
+   for e in result["error"][count]:
+    print(f"🪜 {e}")
    failed=True
-  for e in result["error"][count]:
-   print(f"🪜 {e}")
   count+=1
  if failed:
   return 1
