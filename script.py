@@ -74,9 +74,6 @@ def main():
    files.append(path)
   elif path.is_dir():
    files.extend(path.rglob("*.svg"))
- if not files:
-  print("❓ no SVG files found")
-  return 0
  failed=False
  count=0
  for file in files:
