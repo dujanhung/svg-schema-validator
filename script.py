@@ -21,8 +21,10 @@ class Validator:
     schema_path=schema_source
    tree=etree.parse(schema_path)
    return etree.XMLSchema(tree)
-  except Exception:
-   return None
+  except Exception as e:
+   print("🔴")
+   print(f"{e}")
+   sys.exit(1)
  def parse_svg(self,file_path:Path):
   try:
    parser=etree.XMLParser(remove_blank_text=True)
