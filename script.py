@@ -104,14 +104,17 @@ def main():
  if not files:
   print("❓ No SVG files found")
   return 1
+ failed=False
  for file_path in files:
   if validator.validate_svg(file_path):
    print("🟢")
   else:
    print("🔴")
- for error in validator.errors:
-  print(f"🪜 {error}")
- if validator.errors:
+   failed=True
+  for error in validator.errors:
+   print(f"🪜 {error}")
+  validator.errors=[]
+ if failed:
   return 1
  return 0
 if __name__=="__main__":
