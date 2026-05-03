@@ -63,7 +63,7 @@ class Validator:
   return result
 def main():
  if len(sys.argv)<3:
-  print("✨ usage"
+  print("✨ usage")
   print(f"🪜 {sys.argv[0]} <schema.xsd|url> <file-or-directory...>")
   return 1
  validator=Validator(sys.argv[1])
