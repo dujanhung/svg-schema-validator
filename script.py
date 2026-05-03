@@ -2,10 +2,29 @@ from pathlib import Path
 from lxml import etree
 import cssutils
 import sys
+import urllib.request
+import tempfile
 RESTRICTED_TAGS={"defs","use","script","image","text"}
 class Validator:
- def __init__(self):
+ def __init__(self,schema_source:str):
   self.errors=[]
+  self.schema=self.load_schema(schema_source)
+ def load_schema(self,schema_source:str):
+  try:
+   if schema_source.startswith("http://") or schema_source.startswith("https://"):
+    with urllib.request.urlopen(schema_source) as response:
+     data=response.read()
+    tmp=tempfile.NamedTemporaryFile(delete=False,suffix=".xsd")
+    tmp.write(data)
+    tmp.close()
+    schema_path=tmp.name
+   else:
+    schema_path=schema_source
+   tree=etree.parse(schema_path)
+   return etree.XMLSchema(tree)
+  except Exception as e:
+   self.errors.append(f"[SCHEMA LOAD ERROR] {schema_source}: {e}")
+   return None
  def clean_file(self,file_path:Path)->None:
   raw_lines=file_path.read_text(encoding="utf-8").splitlines()
   lines=[]
@@ -20,6 +39,14 @@ class Validator:
   except etree.XMLSyntaxError as e:
    self.errors.append(f"[XML ERROR] {file_path}: {e}")
    return None
+ def validate_schema(self,tree,file_path:Path)->bool:
+  if self.schema is None:
+   return False
+  if not self.schema.validate(tree):
+   for error in self.schema.error_log:
+    self.errors.append(f"[SCHEMA ERROR] {file_path}: {error}")
+   return False
+  return True
  def validate_restricted_tags(self,root,file_path:Path)->bool:
   valid=True
   for element in root.iter():
@@ -53,18 +80,21 @@ class Validator:
    return False
   root=tree.getroot()
   ok=True
+  if not self.validate_schema(tree,file_path):
+   ok=False
   if not self.validate_restricted_tags(root,file_path):
    ok=False
   if not self.validate_css(root,file_path):
    ok=False
   return ok
 def main():
- if len(sys.argv)<2:
-  print(f"Usage: {sys.argv[0]} <svg-file-or-directory> [...]")
+ if len(sys.argv)<3:
+  print(f"Usage: {sys.argv[0]} <schema.xsd|url> <svg-file-or-directory> [...]")
   return 1
- validator=Validator()
+ schema_source=sys.argv[1]
+ validator=Validator(schema_source)
  files=[]
- for arg in sys.argv[1:]:
+ for arg in sys.argv[2:]:
   path=Path(arg)
   if path.is_file() and path.suffix.lower()==".svg":
    files.append(path)
