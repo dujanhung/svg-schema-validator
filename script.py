@@ -75,7 +75,7 @@ def main():
   elif path.is_dir():
    files.extend(path.rglob("*.svg"))
  if not files:
-  print("No SVG files found.")
+  print("❓ no SVG files found")
   return 1
  failed=False
  count=0
