@@ -89,9 +89,9 @@ def main():
   print(f"🏁 {file}")
   count+=1
  if failed:
-  print("💀")
+  print("❎")
   return 1
- print("🎉")
+ print("✅")
  return 0
 if __name__=="__main__":
  sys.exit(main())
