@@ -24,7 +24,7 @@ class Validator:
    return etree.XMLSchema(tree)
   except Exception as e:
    self.errors.append(f"[SCHEMA LOAD ERROR] {schema_source}: {e}")
-   return None
+   sys.exit(1)
  def clean_file(self,file_path:Path)->None:
   raw_lines=file_path.read_text(encoding="utf-8").splitlines()
   lines=[]
