@@ -77,6 +77,7 @@ def main():
  failed=False
  count=0
  for file in files:
+  print(f"👀 {file}")
   result=validator.validate_svg(file)
   if result["ok"][count]:
    print(f"🟢 {file}")
@@ -85,9 +86,12 @@ def main():
    for e in result["error"][count]:
     print(f"🪜 {e}")
    failed=True
+  print(f"🏁 {file}")
   count+=1
  if failed:
+  print("💀")
   return 1
+ print("🎉")
  return 0
 if __name__=="__main__":
  sys.exit(main())
