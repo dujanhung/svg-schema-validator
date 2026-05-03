@@ -33,38 +33,39 @@ class Validator:
   except etree.XMLSyntaxError:
    return None
  def validate_svg(self,file_path:Path):
-  result={"ok":True,"errors":[]}
+  result={"ok":True,"error":[]}
   tree=self.parse_svg(file_path)
   if tree is None:
-   result["errors"].append(f"[XML ERROR] {file_path}")
+   result["error"].append(f"[XML ERROR] {file_path}")
    result["ok"]=False
    return result
   root=tree.getroot()
   if self.schema is not None and not self.schema.validate(tree):
    for e in self.schema.error_log:
-    result["errors"].append(f"[SCHEMA ERROR] {file_path}: {e}")
+    result["error"].append(f"[SCHEMA ERROR] {file_path}: {e}")
    result["ok"]=False
   for element in root.iter():
    tag=etree.QName(element).localname
    if tag in RESTRICTED_TAGS:
-    result["errors"].append(f"[RESTRICTED] {file_path}: <{tag}>")
+    result["error"].append(f"[RESTRICTED] {file_path}: <{tag}>")
     result["ok"]=False
   for style in root.xpath("//*[local-name()='style']"):
    css_text=(style.text or "").strip()
    if not css_text:
     continue
    if "\n\n" in css_text:
-    result["errors"].append(f"[CSS EMPTY LINE] {file_path}")
+    result["error"].append(f"[CSS EMPTY LINE] {file_path}")
     result["ok"]=False
    try:
     cssutils.parseString(css_text)
    except Exception as e:
-    result["errors"].append(f"[CSS ERROR] {file_path}: {e}")
+    result["error"].append(f"[CSS ERROR] {file_path}: {e}")
     result["ok"]=False
   return result
 def main():
  if len(sys.argv)<3:
-  print(f"Usage: {sys.argv[0]} <schema.xsd|url> <file-or-directory...>")
+  print("✨ usage"
+  print(f"🪜 {sys.argv[0]} <schema.xsd|url> <file-or-directory...>")
   return 1
  validator=Validator(sys.argv[1])
  files=[]
@@ -77,7 +78,6 @@ def main():
  if not files:
   print("No SVG files found.")
   return 1
- all_errors=[]
  failed=False
  count=0
  for file in files:
@@ -87,7 +87,7 @@ def main():
   else:
    print(f"🔴 {file}")
    failed=True
-  for e in result["errors"][count]:
+  for e in result["error"][count]:
    print(f"🪜 {e}")
   count+=1
  if failed:
