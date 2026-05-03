@@ -79,16 +79,17 @@ def main():
   return 1
  all_errors=[]
  failed=False
- for f in files:
-  result=validator.validate_svg(f)
-  all_errors.extend()
-  if result["ok"]:
-   print("🟢")
+ count=0
+ for file in files:
+  result=validator.validate_svg(file)
+  if result["ok"][count]:
+   print(f"🟢 {file}")
   else:
-   print("🔴")
+   print(f"🔴 {file}")
    failed=True
-  for e in result["errors"]:
+  for e in result["errors"][count]:
    print(f"🪜 {e}")
+  count+=1
  if failed:
   return 1
  return 0
