@@ -89,7 +89,8 @@ class Validator:
   return ok
 def main():
  if len(sys.argv)<3:
-  print(f"Usage: {sys.argv[0]} <schema.xsd|url> <svg-file-or-directory> [...]")
+  print("✨ usage")
+  print(f"🪜 {sys.argv[0]} <schema.xsd|url> <svg-file-or-directory> [...]")
   return 1
  schema_source=sys.argv[1]
  validator=Validator(schema_source)
@@ -101,15 +102,16 @@ def main():
   elif path.is_dir():
    files.extend(path.rglob("*.svg"))
  if not files:
-  print("No SVG files found.")
+  print("❓ No SVG files found")
   return 1
- failed=False
  for file_path in files:
-  if not validator.validate_svg(file_path):
-   failed=True
+  if validator.validate_svg(file_path):
+   print("🟢")
+  else:
+   print("🔴")
  for error in validator.errors:
-  print(error)
- if failed:
+  print(f"🪜 {error}")
+ if validator.errors:
   return 1
  return 0
 if __name__=="__main__":
