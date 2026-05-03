@@ -89,7 +89,7 @@ def main():
   print(f"🏁 {file}")
   count+=1
  if failed:
-  print("❎")
+  print("❌")
   return 1
  print("✅")
  return 0
