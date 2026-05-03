@@ -83,6 +83,8 @@ def main():
    failed=True
  for e in all_errors:
   print(e)
- return 1 if failed else 0
+ if failed:
+  return 1
+ return 0
 if __name__=="__main__":
  sys.exit(main())
