@@ -87,8 +87,9 @@ def main():
   file=path.rglob("*.svg")
  print(f"👀 {file}")
  result=validator.validate_xml(file)
- if validator.root:
-  result=validator.validate_css()
+ if result:
+  if validator.root:
+   result=validator.validate_css()
  if result:
   print(f"🟢")
   return 0
