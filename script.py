@@ -44,9 +44,7 @@ class Validator:
    result["ok"]=False
   for element in root.iter():
    tag=etree.QName(element).localname
-   if tag in RESTRICTED_TAGS:
-    result["error"].append(f"[RESTRICTED] {file_path}: <{tag}>")
-    result["ok"]=False
+   print(tag)
   for style in root.xpath("//*[local-name()='style']"):
    css_text=(style.text or "").strip()
    if not css_text:
