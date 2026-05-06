@@ -4,6 +4,9 @@ import cssutils
 import sys
 import urllib.request
 import tempfile
+class ErrorHandler:
+ def __init(self,message:str):
+  
 class Validator:
  def __init__(self,schema_source:str):
   self.schema=self.load_schema(schema_source)
@@ -31,7 +34,7 @@ class Validator:
   except etree.XMLSyntaxError:
    return None
  def validate_svg(self,file_path:Path):
-  result={"ok":True,"error":[]}
+  result={"ok":[True],"error":[""]}
   tree=self.parse_svg(file_path)
   if tree is None:
    return result
