@@ -13,7 +13,8 @@ class StackTrace:
   self.result=[]
   self.is_monitoring=false
  def print_err(err_type,err_msg):
-  print(f"{err_type} : {err_msg}")
+  if self.is_monitoring:
+   print(f"{err_type} : {err_msg}")
 class Validator:
  def __init__(self,schema_source:str):
   self.schema=self.load_schema(schema_source)
