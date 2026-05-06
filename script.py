@@ -22,7 +22,6 @@ class Validator:
    tree=etree.parse(schema_path)
    return etree.XMLSchema(tree)
   except Exception as e:
-   print(f"🔴 {schema_source}")
    print(e)
    return False
  def parse_xml(self,file_path:Path):
@@ -51,9 +50,8 @@ class Validator:
      print(e)
     return False
    return True
-  else:
-   print("🔴 missing XSD file")
-   os.exit(1)
+  print("missing XSD file")
+  return False
  def validate_css(self,root):
   for style in root.xpath("//*[local-name()='style']"):
    css_text=(style.text or "").strip()
