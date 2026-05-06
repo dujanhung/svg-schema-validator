@@ -52,14 +52,16 @@ class Validator:
  def parse_xml(self):
   try:
    parser=etree.XMLParser(remove_blank_text=True)
-   return etree.parse(self.tmp_target.name,parser)
+   if not self.tmp_target.name is str:
+    return etree.parse(self.tmp_target.name,parser)
+   return etree.parse(self.tmp_target,parser)
   except Exception as e:
    print(e)
    return "ERR"
  def validate_xml(self):
   if not self.validate_schema():
    return False
-  tree=self.parse_xml(self.tmp_target.name)
+  tree=self.parse_xml()
   if tree=="ERR":
    return False
   self.root=tree.getroot()
