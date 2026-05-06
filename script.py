@@ -4,14 +4,6 @@ import cssutils
 import sys
 import urllib.request
 import tempfile
-class Logger:
- def __init(self):
-  self.is_monitoring=false
-  self.is_failed=false
- def log_err(self,err_type:str,err_msg:str):
-  if self.is_monitoring:
-   print(f"{err_type} : {err_msg}")
-   self.is_failed=True
 class Validator:
  def __init__(self,schema_source:str):
   self.schema=self.load_schema(schema_source)
