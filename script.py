@@ -44,9 +44,11 @@ class Validator:
    return False
  def cleanup_cache(self):
   if self.tmp_xsd:
-   self.tmp_xsd.close()
+   if not self.tmp_xsd is str:
+    self.tmp_xsd.close()
   if self.tmp_target:
-   self.tmp_target.close()
+   if not self.tmp_target is str:
+    self.tmp_target.close()
  def parse_xml(self):
   try:
    parser=etree.XMLParser(remove_blank_text=True)
