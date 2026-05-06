@@ -26,7 +26,7 @@ class Validator:
    print(e)
    self.is_failed=True
    sys.exit(1)
- def parse_svg(self,file_path:Path):
+ def parse_xml(self,file_path:Path):
   try:
    parser=etree.XMLParser(remove_blank_text=True)
    return etree.parse(str(file_path),parser)
@@ -35,7 +35,7 @@ class Validator:
    self.is_failed=True
    return False
  def validate_svg(self,file_path:Path):
-  tree=self.parse_svg(file_path)
+  tree=self.parse_xml(file_path)
   if tree is None:
    return True
   root=tree.getroot()
