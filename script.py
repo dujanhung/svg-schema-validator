@@ -18,6 +18,7 @@ class Logger:
  def log_err(self,err_type,err_msg):
   if self.is_monitoring:
    print(f"{err_type} : {err_msg}")
+   self.is_failed=True
 class Validator:
  def __init__(self,schema_source:str):
   self.schema=self.load_schema(schema_source)
