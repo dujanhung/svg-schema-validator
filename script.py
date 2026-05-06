@@ -43,7 +43,7 @@ class Validator:
   self.root=tree.getroot()
   return True
  def validate_schema(self):
-  if self.schema is not None:
+  if self.schema:
    if not self.schema.validate(tree):
     for e in self.schema.error_log:
      print(e)
