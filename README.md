@@ -2,6 +2,8 @@
 
 validate XML schema with Python
 
+___
+
 # supported file formats
 
 ## `xml`
@@ -14,6 +16,10 @@ validate XML schema with Python
 
 ## `html`
 
+___
+
 # usage
+
+___
 
 # credits
