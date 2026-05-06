@@ -1,6 +1,7 @@
 from pathlib import Path
 from lxml import etree
 import cssutils
+import os
 import sys
 import urllib.request
 import tempfile
@@ -25,7 +26,7 @@ class Validator:
    print(f"🔴 {schema_source}")
    print(e)
    self.is_failed=True
-   sys.exit(1)
+   os.exit(1)
  def parse_xml(self,file_path:Path):
   try:
    parser=etree.XMLParser(remove_blank_text=True)
@@ -33,9 +34,11 @@ class Validator:
   except etree.XMLSyntaxError as e:
    print(e)
    self.is_failed=True
-   return False
+   return "ERR"
  def validate_xml(self,file_path:Path):
   tree=self.parse_xml(file_path)
+  if tree=="ERR":
+   return False
   if tree is None:
    return True
   root=tree.getroot()
@@ -86,4 +89,4 @@ def main():
   print("✅")
   return 0
 if __name__=="__main__":
- sys.exit(main())
+ os.exit(main())
