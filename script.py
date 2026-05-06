@@ -44,22 +44,21 @@ class Validator:
    for e in self.schema.error_log:
     print(e)
    self.is_failed=True
-  for element in root.iter():
-   tag=etree.QName(element).localname
-   print(tag)
+   return False
   for style in root.xpath("//*[local-name()='style']"):
    css_text=(style.text or "").strip()
    if not css_text:
     continue
    if "\n\n" in css_text:
-    result["error"].append(f"[CSS EMPTY LINE] {file_path}")
-    result["ok"]=False
+    print("[CSS EMPTY LINE]")
+    self.is_failed=True
    try:
     cssutils.parseString(css_text)
    except Exception as e:
-    result["error"].append(f"[CSS ERROR] {file_path}: {e}")
-    result["ok"]=False
-  return result
+    print("[CSS ERROR]")
+    print(e)
+    self.is_failed=True
+  return self.is_failed
 def main():
  if len(sys.argv)<3:
   print("✨ usage")
