@@ -8,7 +8,6 @@ import tempfile
 class Validator:
  def __init__(self):
   self.schema=None
-  self.is_failed=False
  def load_schema(self,schema_source:str):
   try:
    if schema_source.startswith("http://") or schema_source.startswith("https://"):
@@ -35,17 +34,14 @@ class Validator:
    return "ERR"
  def validate_xml(self,file_path:Path):
   if not self.validate_schema():
-   self.is_failed=True
    return False
   tree=self.parse_xml(file_path)
   if tree=="ERR":
-   self.is_failed=True
    return False
   if tree is None:
    return True
   root=tree.getroot()
   if not self.validate_css(root):
-   self.is_failed=True
    return False
   return True
  def validate_schema(self):
@@ -53,13 +49,11 @@ class Validator:
    if not self.schema.validate(tree):
     for e in self.schema.error_log:
      print(e)
-    self.is_failed=True
     return False
   else:
    print("🔴 missing XSD file")
    os.exit(1)
  def validate_css(self,root):
-  failed=False
   for style in root.xpath("//*[local-name()='style']"):
    css_text=(style.text or "").strip()
    if not css_text:
@@ -69,11 +63,11 @@ class Validator:
    except Exception as e:
     print("[CSS ERROR]")
     print(e)
-    failed=True
+    return False
    if "\n\n" in css_text:
     print("[CSS EMPTY LINE]")
-    failed=True
-  return failed
+    return False
+  return True
 def main():
  if len(sys.argv)<3:
   print("✨ usage")
