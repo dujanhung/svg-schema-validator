@@ -33,7 +33,7 @@ class Validator:
   except etree.XMLSyntaxError as e:
    print(e)
    self.is_failed=True
-   return None
+   return False
  def validate_svg(self,file_path:Path):
   result={"ok":[True],"error":[""]}
   tree=self.parse_svg(file_path)
