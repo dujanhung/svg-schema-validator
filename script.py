@@ -110,6 +110,8 @@ def main():
  validator=Validator()
  if not validator.load_schema(sys.argv[1]):
   return 1
+ if not validator.load_target(sys.argv[2]):
+  return 1
  print(f"👀 {file}")
  result=validator.validate_xml()
  if result:
