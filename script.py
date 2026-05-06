@@ -11,6 +11,7 @@ class StackTrace:
  MSG_LOOK_END="🌅"
  def __init(self):
   self.result=[]
+  self.is_monitoring=false
  def print_err(err_type,err_msg):
   print(f"{err_type} : {err_msg}")
 class Validator:
