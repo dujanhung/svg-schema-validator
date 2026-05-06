@@ -6,8 +6,8 @@ import sys
 import urllib.request
 import tempfile
 class Validator:
- def __init__(self,schema_source:str):
-  self.schema=self.load_schema(schema_source)
+ def __init__(self):
+  self.schema=None
   self.is_failed=False
  def load_schema(self,schema_source:str):
   try:
@@ -68,7 +68,8 @@ def main():
   print("✨ usage")
   print(f"🪜 {sys.argv[0]} <schema.xsd|url> <file|directory>")
   return 1
- validator=Validator(sys.argv[1])
+ validator=Validator()
+ Validator.load_schema(sys.argv[1])
  file=""
  path=Path(sys.argv[2])
  if path.is_file() and path.suffix==".svg":
