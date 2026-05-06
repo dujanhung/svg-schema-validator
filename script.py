@@ -20,7 +20,7 @@ class Validator:
     self.tmp_xsd=tempfile.NamedTemporaryFile(suffix=".xsd")
     self.tmp_xsd.write(data)
     self.tmp_xsd.flush()
-    schema_path=self.tmp_target.name
+    schema_path=self.tmp_xsd.name
    else:
     schema_path=schema_source
    tree=etree.parse(schema_path)
