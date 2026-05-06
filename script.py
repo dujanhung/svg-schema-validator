@@ -36,17 +36,18 @@ class Validator:
    self.is_failed=True
    return "ERR"
  def validate_xml(self,file_path:Path):
+  if self.schema is not None:
+   if not self.schema.validate(tree):
+    for e in self.schema.error_log:
+     print(e)
+    self.is_failed=True
+    return False
   tree=self.parse_xml(file_path)
   if tree=="ERR":
    return False
   if tree is None:
    return True
   root=tree.getroot()
-  if self.schema is not None and not self.schema.validate(tree):
-   for e in self.schema.error_log:
-    print(e)
-   self.is_failed=True
-   return False
   self.validate_css(root)
  def validate_css(self,root):
   for style in root.xpath("//*[local-name()='style']"):
