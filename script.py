@@ -49,10 +49,10 @@ class Validator:
    self.tmp_xsd.close()
   if self.tmp_target:
    self.tmp_target.close()
- def parse_xml(self,file_path:Path):
+ def parse_xml(self):
   try:
    parser=etree.XMLParser(remove_blank_text=True)
-   return etree.parse(str(file_path),parser)
+   return etree.parse(self.tmp_target.read(),parser)
   except Exception as e:
    print(e)
    return "ERR"
