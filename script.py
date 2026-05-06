@@ -8,6 +8,7 @@ import tempfile
 class Validator:
  def __init__(self):
   self.schema=None
+  self.root=None
  def load_schema(self,schema_source:str):
   try:
    if schema_source.startswith("http://") or schema_source.startswith("https://"):
@@ -40,9 +41,7 @@ class Validator:
    return False
   if tree is None:
    return True
-  root=tree.getroot()
-  if not self.validate_css(root):
-   return False
+  self.root=tree.getroot()
   return True
  def validate_schema(self):
   if self.schema is not None:
@@ -86,6 +85,8 @@ def main():
   file=path.rglob("*.svg")
  print(f"👀 {file}")
  result=validator.validate_xml(file)
+ if validator.root:
+  result=validator.validate_css(validator.root)
  if result:
   print(f"🟢")
   return 0
