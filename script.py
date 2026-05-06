@@ -12,7 +12,6 @@ class Logger:
  MSG_LOOK_BEGIN="👀"
  MSG_LOOK_END="🌅"
  def __init(self):
-  self.result=[]
   self.is_monitoring=false
   self.is_failed=false
  def log_err(self,err_type:str,err_msg:str):
