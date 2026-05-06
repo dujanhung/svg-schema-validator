@@ -4,7 +4,6 @@ import cssutils
 import sys
 import urllib.request
 import tempfile
-RESTRICTED_TAGS={"defs","use","script","image","text"}
 class Validator:
  def __init__(self,schema_source:str):
   self.schema=self.load_schema(schema_source)
