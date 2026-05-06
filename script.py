@@ -14,7 +14,7 @@ class Logger:
  def __init(self):
   self.result=[]
   self.is_monitoring=false
- def log_err(err_type,err_msg):
+ def log_err(self,err_type,err_msg):
   if self.is_monitoring:
    print(f"{err_type} : {err_msg}")
 class Validator:
