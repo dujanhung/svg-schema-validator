@@ -40,8 +40,6 @@ class Validator:
   tree=self.parse_xml(file_path)
   if tree=="ERR":
    return False
-  if tree is None:
-   return True
   self.root=tree.getroot()
   return True
  def validate_schema(self):
