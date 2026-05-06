@@ -5,9 +5,14 @@ import sys
 import urllib.request
 import tempfile
 class StackTrace:
+ MSG_SUCCESS="🟢"
+ MSG_FAIL="🔴"
+ MSG_LOOK_BEGIN="👀"
+ MSG_LOOK_END="🌅"
  def __init(self):
   self.result=[]
- def print_err(err_type,msg)
+ def print_err(err_type,err_msg):
+  print(f"{err_type} : {err_msg}")
 class Validator:
  def __init__(self,schema_source:str):
   self.schema=self.load_schema(schema_source)
