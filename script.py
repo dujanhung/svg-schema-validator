@@ -24,7 +24,7 @@ class Validator:
   except Exception as e:
    print(f"🔴 {schema_source}")
    print(e)
-   os.exit(1)
+   return False
  def parse_xml(self,file_path:Path):
   try:
    parser=etree.XMLParser(remove_blank_text=True)
