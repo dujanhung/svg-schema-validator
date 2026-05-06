@@ -20,8 +20,8 @@ ___
 
 # usage
 
-```sh
-python script.py schema.xsd target.xml xml
+```txt
+python script.py <schema.xsd|url> <target> <ext>
 ```
 
 ___
