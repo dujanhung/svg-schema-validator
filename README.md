@@ -6,7 +6,7 @@ ___
 
 # features
 
-## accepts `XSD` from external link
+## download files from external link
 
 ___
 
