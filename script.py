@@ -5,6 +5,8 @@ import os
 import sys
 import urllib.request
 import tempfile
+FILE_EXT=["xml","md","svg","html"]
+select_file_ext="xml"
 class Validator:
  def __init__(self):
   self.schema=None
@@ -70,9 +72,9 @@ class Validator:
     return False
   return True
 def main():
- if len(sys.argv)<3:
+ if len(sys.argv)<4:
   print("✨ usage")
-  print(f"🪜 {sys.argv[0]} <schema.xsd|url> <file|directory>")
+  print(f"🪜 {sys.argv[0]} <schema.xsd|url> <file|dir> <file_ext>")
   return 1
  validator=Validator()
  if not validator.load_schema(sys.argv[1]):
@@ -81,15 +83,20 @@ def main():
   return 1
  file=""
  path=Path(sys.argv[2])
- if path.is_file() and path.suffix==".svg":
+ select_file_ext=sys.argv[3]
+ if not select_file_ext in FILE_EXT:
+  print("✨ available file extensions")
+  print(FILE_EXT)
+ if path.is_file():
   file=path
  elif path.is_dir():
-  file=path.rglob("*.svg")
+  file=path.rglob(f"*.{select_file_ext}")
  print(f"👀 {file}")
  result=validator.validate_xml(file)
  if result:
-  if validator.root:
-   result=validator.validate_css()
+  if select_file_ext=="svg":
+   if validator.root:
+    result=validator.validate_css()
  if result:
   print(f"🟢")
   return 0
