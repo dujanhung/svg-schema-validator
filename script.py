@@ -17,9 +17,9 @@ class Validator:
    if schema_source.startswith("http://") or schema_source.startswith("https://"):
     with urllib.request.urlopen(schema_source) as r:
      data=r.read()
-    tmp=tempfile.NamedTemporaryFile(suffix=".xsd")
-    tmp.write(data)
-    tmp.flush()
+    self.tmp_xsd=tempfile.NamedTemporaryFile(suffix=".xsd")
+    self.tmp_xsd.write(data)
+    self.tmp_xsd.flush()
     schema_path=tmp.name
    else:
     schema_path=schema_source
