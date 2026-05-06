@@ -40,8 +40,6 @@ class Validator:
     target_path=self.tmp_target.name
    else:
     target_path=target_source
-   tree=etree.parse(target_path)
-   etree.XMLSchema(tree)
    return True
   except Exception as e:
    print(e)
