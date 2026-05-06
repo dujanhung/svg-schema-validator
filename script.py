@@ -77,12 +77,14 @@ def main():
  if not selected_file_ext in FILE_EXT:
   print("✨ available file extensions")
   print(FILE_EXT)
+  return 1
  file=""
  path=Path(sys.argv[2])
  if path.is_file():
   file=path
  elif path.is_dir():
   print("✨ file")
+  return 1
  validator=Validator()
  if not validator.load_schema(sys.argv[1]):
   return 1
