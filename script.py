@@ -37,10 +37,8 @@ class Validator:
     self.tmp_target=tempfile.NamedTemporaryFile(suffix=f".{selected_file_ext}")
     self.tmp_target.write(data)
     self.tmp_target.flush()
-    target_path=self.tmp_target.name
    else:
-    target_path=target_source
-   return True
+    self.tmp_target=target_source
   except Exception as e:
    print(e)
    return False
