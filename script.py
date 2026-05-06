@@ -56,10 +56,10 @@ class Validator:
   except Exception as e:
    print(e)
    return "ERR"
- def validate_xml(self,file_path:Path):
+ def validate_xml(self):
   if not self.validate_schema():
    return False
-  tree=self.parse_xml(file_path)
+  tree=self.parse_xml(self.tmp_target.name)
   if tree=="ERR":
    return False
   self.root=tree.getroot()
@@ -111,7 +111,7 @@ def main():
  if not validator.load_schema(sys.argv[1]):
   return 1
  print(f"👀 {file}")
- result=validator.validate_xml(file)
+ result=validator.validate_xml()
  if result:
   if selected_file_ext in ["svg","html"]:
    result=validator.validate_css()
