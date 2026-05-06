@@ -74,8 +74,6 @@ def main():
   print(f"🪜 {sys.argv[0]} <schema.xsd|url> <file|dir> <file_ext>")
   return 1
  validator=Validator()
- if not validator.load_schema(sys.argv[1]):
-  return 1
  file=""
  path=Path(sys.argv[2])
  selected_file_ext=sys.argv[3]
@@ -86,6 +84,8 @@ def main():
   file=path
  elif path.is_dir():
   file=path.rglob(f"*.{selected_file_ext}")
+ if not validator.load_schema(sys.argv[1]):
+  return 1
  print(f"👀 {file}")
  result=validator.validate_xml(file)
  if result:
