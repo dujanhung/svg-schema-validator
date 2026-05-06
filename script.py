@@ -78,8 +78,6 @@ def main():
  validator=Validator()
  if not validator.load_schema(sys.argv[1]):
   return 1
- if not validator.validate_schema():
-  return 1
  file=""
  path=Path(sys.argv[2])
  selected_file_ext=sys.argv[3]
