@@ -25,7 +25,6 @@ class Validator:
   except Exception as e:
    print(f"🔴 {schema_source}")
    print(e)
-   self.is_failed=True
    os.exit(1)
  def parse_xml(self,file_path:Path):
   try:
@@ -33,23 +32,34 @@ class Validator:
    return etree.parse(str(file_path),parser)
   except etree.XMLSyntaxError as e:
    print(e)
-   self.is_failed=True
    return "ERR"
  def validate_xml(self,file_path:Path):
+  if not validate_schema():
+   self.is_failed=True
+   return False
+  tree=self.parse_xml(file_path)
+  if tree=="ERR":
+   self.is_failed=True
+   return False
+  if tree is None:
+   return True
+  root=tree.getroot()
+  if not self.validate_css(root):
+   self.is_failed=True
+   return False
+  return True
+ def validate_schema(self):
   if self.schema is not None:
    if not self.schema.validate(tree):
     for e in self.schema.error_log:
      print(e)
     self.is_failed=True
     return False
-  tree=self.parse_xml(file_path)
-  if tree=="ERR":
-   return False
-  if tree is None:
-   return True
-  root=tree.getroot()
-  self.validate_css(root)
+  else:
+   print("🔴 missing XSD file")
+   os.exit(1)
  def validate_css(self,root):
+  failed=False
   for style in root.xpath("//*[local-name()='style']"):
    css_text=(style.text or "").strip()
    if not css_text:
@@ -59,11 +69,11 @@ class Validator:
    except Exception as e:
     print("[CSS ERROR]")
     print(e)
-    self.is_failed=True
+    failed=True
    if "\n\n" in css_text:
     print("[CSS EMPTY LINE]")
-    self.is_failed=True
-   return self.is_failed
+    failed=True
+  return failed
 def main():
  if len(sys.argv)<3:
   print("✨ usage")
