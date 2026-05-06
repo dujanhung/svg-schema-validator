@@ -52,7 +52,7 @@ class Validator:
  def parse_xml(self):
   try:
    parser=etree.XMLParser(remove_blank_text=True)
-   return etree.parse(self.tmp_target.read(),parser)
+   return etree.parse(self.tmp_target.name,parser)
   except Exception as e:
    print(e)
    return "ERR"
