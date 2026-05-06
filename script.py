@@ -127,4 +127,4 @@ def main():
   print(f"🔴")
   return 1
 if __name__=="__main__":
- os.exit(main())
+ os.quit(main())
