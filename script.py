@@ -29,6 +29,23 @@ class Validator:
   except Exception as e:
    print(e)
    return False
+ def load_target(self,target_source:str):
+  try:
+   if target_source.startswith("http://") or target_source.startswith("https://"):
+    with urllib.request.urlopen(target_source) as r:
+     data=r.read()
+    self.tmp_xsd=tempfile.NamedTemporaryFile(suffix=".xsd")
+    self.tmp_target.write(data)
+    self.tmp_target.flush()
+    target_path=tmp.name
+   else:
+    target_path=target_source
+   tree=etree.parse(target_path)
+   etree.XMLSchema(tree)
+   return True
+  except Exception as e:
+   print(e)
+   return False
  def cleanup_cache(self):
   if self.tmp_xsd:
    self.tmp_xsd.close()
