@@ -84,7 +84,8 @@ def main():
  if Validator.is_failed:
   print("❌")
   return 1
- print("✅")
- return 0
+ else
+  print("✅")
+  return 0
 if __name__=="__main__":
  sys.exit(main())
