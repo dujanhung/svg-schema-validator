@@ -4,6 +4,12 @@ validate XML schema with Python
 
 ___
 
+# features
+
+## accepts `XSD` from external link
+
+___
+
 # supported file formats
 
 ## `xml`
