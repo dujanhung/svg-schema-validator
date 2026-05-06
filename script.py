@@ -20,7 +20,7 @@ class Validator:
     self.tmp_xsd=tempfile.NamedTemporaryFile(suffix=".xsd")
     self.tmp_xsd.write(data)
     self.tmp_xsd.flush()
-    schema_path=tmp.name
+    schema_path=self.tmp_target.name
    else:
     schema_path=schema_source
    tree=etree.parse(schema_path)
@@ -34,10 +34,10 @@ class Validator:
    if target_source.startswith("http://") or target_source.startswith("https://"):
     with urllib.request.urlopen(target_source) as r:
      data=r.read()
-    self.tmp_xsd=tempfile.NamedTemporaryFile(suffix=".xsd")
+    self.tmp_target=tempfile.NamedTemporaryFile(suffix=f".{selected_file_ext}")
     self.tmp_target.write(data)
     self.tmp_target.flush()
-    target_path=tmp.name
+    target_path=self.tmp_target.name
    else:
     target_path=target_source
    tree=etree.parse(target_path)
