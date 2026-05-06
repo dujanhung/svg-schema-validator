@@ -15,8 +15,6 @@ class Logger:
   self.result=[]
   self.is_monitoring=false
   self.is_failed=false
- def monitor(self,v:bool):
-  self.is_monitoring=v
  def log_err(self,err_type:str,err_msg:str):
   if self.is_monitoring:
    print(f"{err_type} : {err_msg}")
