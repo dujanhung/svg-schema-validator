@@ -5,8 +5,8 @@ import sys
 import urllib.request
 import tempfile
 class Logger:
- MSG_ON="🛣️ logger enabled"
- MSG_OFF="🚧 logger disabled"
+ MSG_ON="🏴 logger enabled"
+ MSG_OFF="🏳️ logger disabled"
  MSG_SUCCESS="🟢"
  MSG_FAIL="🔴"
  MSG_LOOK_BEGIN="👀"
