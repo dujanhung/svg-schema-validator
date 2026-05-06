@@ -20,7 +20,7 @@ ___
 
 # usage
 
-```bash
+```sh
 python script.py schema.xsd target.xml xml
 ```
 
