@@ -8,7 +8,7 @@ ___
 
 ## download files from external link
 
-## validate CSS in <code>style</code>
+## validate CSS in <code>\<style\></code>
 
 ___
 
