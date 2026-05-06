@@ -1,2 +1,2 @@
-# svg-schema-validator
-validate SVG schema with Python
+# XML schema validator
+validate XML schema with Python
