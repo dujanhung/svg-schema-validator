@@ -5,7 +5,7 @@ import os
 import sys
 import urllib.request
 import tempfile
-FILE_EXT=["xml","md","svg","html"]
+FILE_EXT=["xml","md","svg","musicxml","html"]
 class Validator:
  def __init__(self):
   self.schema=None
