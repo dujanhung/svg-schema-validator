@@ -71,7 +71,7 @@ class Validator:
 def main():
  if len(sys.argv)<4:
   print("✨ usage")
-  print(f"🪜 {sys.argv[0]} <schema.xsd|url> <file> <file_ext>")
+  print(f"🪜 {sys.argv[0]} <schema.xsd|url> <target> <ext>")
   return 1
  selected_file_ext=sys.argv[3]
  if not selected_file_ext in FILE_EXT:
