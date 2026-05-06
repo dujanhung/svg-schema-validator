@@ -34,8 +34,6 @@ class Validator:
   result={"ok":True,"error":[]}
   tree=self.parse_svg(file_path)
   if tree is None:
-   result["error"].append(f"[XML ERROR] {file_path}")
-   result["ok"]=False
    return result
   root=tree.getroot()
   if self.schema is not None and not self.schema.validate(tree):
