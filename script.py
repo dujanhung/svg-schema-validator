@@ -92,8 +92,7 @@ def main():
  result=validator.validate_xml(file)
  if result:
   if selected_file_ext=="svg":
-   if validator.root:
-    result=validator.validate_css()
+   result=validator.validate_css()
  if result:
   print(f"🟢")
   return 0
