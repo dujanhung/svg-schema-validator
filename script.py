@@ -71,18 +71,18 @@ class Validator:
 def main():
  if len(sys.argv)<4:
   print("✨ usage")
-  print(f"🪜 {sys.argv[0]} <schema.xsd|url> <file|dir> <file_ext>")
+  print(f"🪜 {sys.argv[0]} <schema.xsd|url> <file> <file_ext>")
   return 1
- file=""
- path=Path(sys.argv[2])
  selected_file_ext=sys.argv[3]
  if not selected_file_ext in FILE_EXT:
   print("✨ available file extensions")
   print(FILE_EXT)
+ file=""
+ path=Path(sys.argv[2])
  if path.is_file():
   file=path
  elif path.is_dir():
-  file=path.rglob(f"*.{selected_file_ext}")
+  print("✨ file")
  validator=Validator()
  if not validator.load_schema(sys.argv[1]):
   return 1
