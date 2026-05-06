@@ -8,6 +8,8 @@ ___
 
 ## download files from external link
 
+## validate CSS in <code>style</code>
+
 ___
 
 # supported file formats
