@@ -74,9 +74,9 @@ def main():
   print(f"🪜 {sys.argv[0]} <schema.xsd|url> <file|directory>")
   return 1
  validator=Validator()
- if not Validator.load_schema(sys.argv[1]):
+ if not validator.load_schema(sys.argv[1]):
   return 1
- if not Validator.validate_schema():
+ if not validator.validate_schema():
   return 1
  file=""
  path=Path(sys.argv[2])
