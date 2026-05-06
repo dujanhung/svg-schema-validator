@@ -23,7 +23,7 @@ class Validator:
    return etree.XMLSchema(tree)
   except Exception as e:
    print(e)
-   return False
+   return None
  def parse_xml(self,file_path:Path):
   try:
    parser=etree.XMLParser(remove_blank_text=True)
