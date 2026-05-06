@@ -10,14 +10,16 @@ class Validator:
  def __init__(self):
   self.schema=None
   self.root=None
+  self.tmp_xsd=None
+  self.tmp_target=None
  def load_schema(self,schema_source:str):
   try:
    if schema_source.startswith("http://") or schema_source.startswith("https://"):
     with urllib.request.urlopen(schema_source) as r:
      data=r.read()
-    tmp=tempfile.NamedTemporaryFile(delete=False,suffix=".xsd")
+    tmp=tempfile.NamedTemporaryFile(suffix=".xsd")
     tmp.write(data)
-    tmp.close()
+    tmp.flush()
     schema_path=tmp.name
    else:
     schema_path=schema_source
@@ -27,6 +29,11 @@ class Validator:
   except Exception as e:
    print(e)
    return False
+ def cleanup_cache(self):
+  if self.tmp_xsd:
+   self.tmp_xsd.close()
+  if self.tmp_target:
+   self.tmp_target.close()
  def parse_xml(self,file_path:Path):
   try:
    parser=etree.XMLParser(remove_blank_text=True)
@@ -93,6 +100,7 @@ def main():
  if result:
   if selected_file_ext in ["svg","html"]:
    result=validator.validate_css()
+ validator.cleanup_cache()
  if result:
   print(f"🟢")
   return 0
