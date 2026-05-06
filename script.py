@@ -85,7 +85,9 @@ def main():
  result=validator.validate_xml(file)
  if result:
   print(f"🟢")
+  return 0
  else:
   print(f"🔴")
+  return 1
 if __name__=="__main__":
  os.exit(main())
