@@ -20,10 +20,11 @@ class Validator:
    else:
     schema_path=schema_source
    tree=etree.parse(schema_path)
-   return etree.XMLSchema(tree)
+   etree.XMLSchema(tree)
+   return True
   except Exception as e:
    print(e)
-   return None
+   return False
  def parse_xml(self,file_path:Path):
   try:
    parser=etree.XMLParser(remove_blank_text=True)
@@ -73,7 +74,10 @@ def main():
   print(f"🪜 {sys.argv[0]} <schema.xsd|url> <file|directory>")
   return 1
  validator=Validator()
- Validator.load_schema(sys.argv[1])
+ if not Validator.load_schema(sys.argv[1]):
+  return 1
+ if not Validator.validate_schema():
+  return 1
  file=""
  path=Path(sys.argv[2])
  if path.is_file() and path.suffix==".svg":
