@@ -34,7 +34,7 @@ class Validator:
    print(e)
    return "ERR"
  def validate_xml(self,file_path:Path):
-  if not validate_schema():
+  if not self.validate_schema():
    self.is_failed=True
    return False
   tree=self.parse_xml(file_path)
