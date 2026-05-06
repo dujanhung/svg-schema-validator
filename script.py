@@ -61,26 +61,22 @@ class Validator:
 def main():
  if len(sys.argv)<3:
   print("✨ usage")
-  print(f"🪜 {sys.argv[0]} <schema.xsd|url> <file-or-directory...>")
+  print(f"🪜 {sys.argv[0]} <schema.xsd|url> <file|directory>")
   return 1
  validator=Validator(sys.argv[1])
- files=[]
- for arg in sys.argv[2:]:
-  path=Path(arg)
-  if path.is_file() and path.suffix==".svg":
-   files.append(path)
-  elif path.is_dir():
-   files.extend(path.rglob("*.svg"))
- count=0
- for file in files:
-  print(f"👀 {file}")
-  result=validator.validate_svg(file)
-  if result:
-   print(f"🟢")
-  else:
-   print(f"🔴")
-  print(f"🏁 {file}")
-  count+=1
+ file=""
+ path=Path(sys.argv[2])
+ if path.is_file() and path.suffix==".svg":
+  file=path
+ elif path.is_dir():
+  file=path.rglob("*.svg")
+ print(f"👀 {file}")
+ result=validator.validate_svg(file)
+ if result:
+  print(f"🟢")
+ else:
+  print(f"🔴")
+ print(f"🏁 {file}")
  if Validator.is_failed:
   print("❌")
   return 1
