@@ -4,9 +4,10 @@ import cssutils
 import sys
 import urllib.request
 import tempfile
-class ErrorHandler:
- def __init(self,message:str):
-  
+class StackTrace:
+ def __init(self):
+  self.result=[]
+ def print_err(err_type,msg)
 class Validator:
  def __init__(self,schema_source:str):
   self.schema=self.load_schema(schema_source)
