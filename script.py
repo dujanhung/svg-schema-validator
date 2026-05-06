@@ -31,7 +31,7 @@ class Validator:
   try:
    parser=etree.XMLParser(remove_blank_text=True)
    return etree.parse(str(file_path),parser)
-  except etree.XMLSyntaxError as e:
+  except Exception as e:
    print(e)
    return "ERR"
  def validate_xml(self,file_path:Path):
