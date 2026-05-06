@@ -4,7 +4,7 @@ import cssutils
 import sys
 import urllib.request
 import tempfile
-class StackTrace:
+class Logger:
  MSG_SUCCESS="🟢"
  MSG_FAIL="🔴"
  MSG_LOOK_BEGIN="👀"
@@ -12,7 +12,7 @@ class StackTrace:
  def __init(self):
   self.result=[]
   self.is_monitoring=false
- def print_err(err_type,err_msg):
+ def log_err(err_type,err_msg):
   if self.is_monitoring:
    print(f"{err_type} : {err_msg}")
 class Validator:
