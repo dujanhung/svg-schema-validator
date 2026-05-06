@@ -48,15 +48,15 @@ class Validator:
    css_text=(style.text or "").strip()
    if not css_text:
     continue
-   if "\n\n" in css_text:
-    print("[CSS EMPTY LINE]")
-    self.is_failed=True
-    continue
    try:
     cssutils.parseString(css_text)
    except Exception as e:
     print("[CSS ERROR]")
     print(e)
+    self.is_failed=True
+    continue
+   if "\n\n" in css_text:
+    print("[CSS EMPTY LINE]")
     self.is_failed=True
     continue
   return self.is_failed
