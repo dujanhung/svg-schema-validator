@@ -49,7 +49,7 @@ class Validator:
      print(e)
     return False
    return True
-  print("missing XSD file")
+  print("missing XSD data")
   return False
  def validate_css(self):
   if not self.root:
