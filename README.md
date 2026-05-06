@@ -20,6 +20,10 @@ ___
 
 # usage
 
+```sh
+python script.py schema.xsd target.xml xml
+```
+
 ___
 
 # credits
