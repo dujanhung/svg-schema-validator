@@ -35,7 +35,6 @@ class Validator:
    self.is_failed=True
    return False
  def validate_svg(self,file_path:Path):
-  result={"ok":[True],"error":[""]}
   tree=self.parse_svg(file_path)
   if tree is None:
    return True
