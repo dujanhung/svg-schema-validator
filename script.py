@@ -52,7 +52,9 @@ class Validator:
    return True
   print("missing XSD file")
   return False
- def validate_css(self,root):
+ def validate_css(self):
+  if not self.root:
+   return True
   for style in root.xpath("//*[local-name()='style']"):
    css_text=(style.text or "").strip()
    if not css_text:
@@ -86,7 +88,7 @@ def main():
  print(f"👀 {file}")
  result=validator.validate_xml(file)
  if validator.root:
-  result=validator.validate_css(validator.root)
+  result=validator.validate_css()
  if result:
   print(f"🟢")
   return 0
