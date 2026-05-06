@@ -50,6 +50,7 @@ class Validator:
     for e in self.schema.error_log:
      print(e)
     return False
+   return True
   else:
    print("🔴 missing XSD file")
    os.exit(1)
