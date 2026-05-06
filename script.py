@@ -7,6 +7,7 @@ import tempfile
 class Validator:
  def __init__(self,schema_source:str):
   self.schema=self.load_schema(schema_source)
+  self.is_failed=False
  def load_schema(self,schema_source:str):
   try:
    if schema_source.startswith("http://") or schema_source.startswith("https://"):
@@ -23,23 +24,26 @@ class Validator:
   except Exception as e:
    print(f"🔴 {schema_source}")
    print(e)
+   self.is_failed=True
    sys.exit(1)
  def parse_svg(self,file_path:Path):
   try:
    parser=etree.XMLParser(remove_blank_text=True)
    return etree.parse(str(file_path),parser)
-  except etree.XMLSyntaxError:
+  except etree.XMLSyntaxError as e:
+   print(e)
+   self.is_failed=True
    return None
  def validate_svg(self,file_path:Path):
   result={"ok":[True],"error":[""]}
   tree=self.parse_svg(file_path)
   if tree is None:
-   return result
+   return True
   root=tree.getroot()
   if self.schema is not None and not self.schema.validate(tree):
    for e in self.schema.error_log:
-    result["error"].append(f"[SCHEMA ERROR] {file_path}: {e}")
-   result["ok"]=False
+    print(e)
+   self.is_failed=True
   for element in root.iter():
    tag=etree.QName(element).localname
    print(tag)
@@ -69,21 +73,17 @@ def main():
    files.append(path)
   elif path.is_dir():
    files.extend(path.rglob("*.svg"))
- failed=False
  count=0
  for file in files:
   print(f"👀 {file}")
   result=validator.validate_svg(file)
-  if result["ok"][count]:
-   print(f"🟢 {file}")
+  if result:
+   print(f"🟢")
   else:
-   print(f"🔴 {file}")
-   for e in result["error"][count]:
-    print(f"🪜 {e}")
-   failed=True
+   print(f"🔴")
   print(f"🏁 {file}")
   count+=1
- if failed:
+ if Validator.is_failed:
   print("❌")
   return 1
  print("✅")
