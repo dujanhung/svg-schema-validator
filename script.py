@@ -34,7 +34,7 @@ class Validator:
    print(e)
    self.is_failed=True
    return False
- def validate_svg(self,file_path:Path):
+ def validate_xml(self,file_path:Path):
   tree=self.parse_xml(file_path)
   if tree is None:
    return True
@@ -44,6 +44,8 @@ class Validator:
     print(e)
    self.is_failed=True
    return False
+  self.validate_css(root)
+ def validate_css(self,root):
   for style in root.xpath("//*[local-name()='style']"):
    css_text=(style.text or "").strip()
    if not css_text:
@@ -54,12 +56,10 @@ class Validator:
     print("[CSS ERROR]")
     print(e)
     self.is_failed=True
-    continue
    if "\n\n" in css_text:
     print("[CSS EMPTY LINE]")
     self.is_failed=True
-    continue
-  return self.is_failed
+   return self.is_failed
 def main():
  if len(sys.argv)<3:
   print("✨ usage")
@@ -73,7 +73,7 @@ def main():
  elif path.is_dir():
   file=path.rglob("*.svg")
  print(f"👀 {file}")
- result=validator.validate_svg(file)
+ result=validator.validate_xml(file)
  if result:
   print(f"🟢")
  else:
