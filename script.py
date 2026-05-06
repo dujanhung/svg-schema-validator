@@ -88,11 +88,11 @@ def main():
  else:
   print(f"🔴")
  print(f"🏁 {file}")
- if Validator.is_failed:
-  print("❌")
-  return 1
- else
+ if result:
   print("✅")
   return 0
+ else
+  print("❌")
+  return 1
 if __name__=="__main__":
  os.exit(main())
